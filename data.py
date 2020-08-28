@@ -2,7 +2,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import configparser
 
-
 def get_driver_path():
     config = configparser.ConfigParser()
     config.read('config.ini')
@@ -49,3 +48,4 @@ for r in rows:
     biden_fav = values[1].find_element_by_class_name("heat-map").get_attribute('innerHTML')
 
 driver.quit()
+
