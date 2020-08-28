@@ -11,16 +11,15 @@ def get_driver_path():
 
 DRIVER_PATH = get_driver_path()
 
-# we don't need the UI
+# We don't need the UI
 options = Options()
 options.headless = True
 
-# wrong permissions: https://stackoverflow.com/questions/47148872/webdrivers-executable-may-have-wrong-permissions-please-see-https-sites-goo
+# Launches the page so we can scrape information from it
 driver = webdriver.Chrome(options=options, executable_path=DRIVER_PATH)
 driver.get('https://projects.fivethirtyeight.com/polls/president-general/')
-# print(driver.page_source)
 
-
+# Scrape data from each row
 rows = driver.find_elements_by_class_name('visible-row')
 for r in rows:
     # Note that element is singular 
@@ -38,14 +37,13 @@ for r in rows:
 
     net = r.find_element_by_class_name("net").text
 
+    # Getting the percent favorable for Trump and Biden
     values = r.find_elements_by_class_name("value")
-
     # If the other value is hidden by the "more" button
     if len(values) == 1:   
         next_sibling = r.find_element_by_xpath("following-sibling::tr[@class='expandable-row']")
         value = next_sibling.find_element_by_class_name("value")
         values.append(value)
-    
     # For some reason using .text doesn't always work, so I'm using .get_attribute instead
     trump_fav = values[0].find_element_by_class_name("heat-map").get_attribute('innerHTML')
     biden_fav = values[1].find_element_by_class_name("heat-map").get_attribute('innerHTML')
