@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>Presidential Candidate Polling Dashboard</h1>
     <table>
         <tr>
             <th>Dates</th>
@@ -14,6 +15,16 @@
             <th>Result</th>
             <th>Net</th>
         </tr>
+        {% for row in pollster_data_array %}
+            <tr>
+                <td>{{ row.date }}</td>
+                <td>{{ row.pollster_name }}</td>
+                <td>{{ row.sample_size }}</td>
+                <td>Trump: {{ row.trump_fav }} Biden: {{ row.biden_fav }}</td>
+                <td>{{ row.leader }} {{ row.net }} </td>
+            </tr>
+        {% endfor %}
+
     </table>
 </body>
 </html>

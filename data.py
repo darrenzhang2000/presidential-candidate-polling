@@ -8,8 +8,8 @@ def get_driver_path():
     config.read('config.ini')
     return config['DRIVER_PATH']['path']
 
-def scrape_poll_data(): # ADDED THIS 
-    pollster_data_array = [] # ADDED THIS
+def scrape_poll_data():  
+    pollster_data_array = [] 
 
     DRIVER_PATH = get_driver_path() 
 
@@ -50,7 +50,7 @@ def scrape_poll_data(): # ADDED THIS
         trump_fav = values[0].find_element_by_class_name("heat-map").get_attribute('innerHTML')
         biden_fav = values[1].find_element_by_class_name("heat-map").get_attribute('innerHTML')
 
-        pollster_data = { # ADDED THIS
+        pollster_data = { 
             "date": date,
             "pollster_name": pollster_name,
             "sample_size": sample_size,
@@ -63,6 +63,6 @@ def scrape_poll_data(): # ADDED THIS
         pollster_data_array.append(pollster_data)
 
     driver.quit()
-    return pollster_data_array# ADDED THIS
+    return pollster_data_array
 
 
